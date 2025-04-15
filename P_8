@@ -1,0 +1,44 @@
+Exp-8
+Code : 
+package exp;
+import java.sql.*;
+public class Jdbc {
+    public static void main(String[] args) {
+        // Database credentials
+        String url = "jdbc:mysql://localhost:3306/class"; // Change "testdb" to your DB name
+        String user = "root"; // Change as per your MySQL credentials
+        String password = "Aniruddh@123"; // Replace with your actual password
+        // SQL queries
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), email VARCHAR(100))";
+        String insertSQL = "INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com')";
+        String selectSQL = "SELECT * FROM users";
+
+        try {
+            // Step 1: Establish a connection
+            Connection con = DriverManager.getConnection(url, user, password);
+            System.out.println("Connected to the database!");
+            // Step 2: Create a statement
+            Statement stmt = con.createStatement();
+            // Step 3: Execute SQL queries
+            stmt.executeUpdate(createTableSQL);
+            stmt.executeUpdate(insertSQL);
+            System.out.println("User inserted successfully!");
+            // Step 4: Retrieve and display data
+            ResultSet rs = stmt.executeQuery(selectSQL);
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+            }
+
+            // Step 5: Close resources
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+OUTPUT: 
+
+
