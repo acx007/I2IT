@@ -1,52 +1,47 @@
 
 JDBCDemo.java *CalculatorServlet.java Xindex.html
-1
+
 package CalculatorServlet;|
-20 import java.io.IOException;
-3 import java.io. PrintWriter;
-4 import javax.servlet.ServletException;
-5
-6
+ import java.io.IOException;
+ import java.io. PrintWriter;
+ import javax.servlet.ServletException;
+
 import
-7
+
 import
 import javax.servlet.annotation.WebServlet; javax.servlet.http.HttpServlet; javax.servlet.http.HttpServletRequest;
-8
+
 import javax.servlet.http.HttpServletResponse; ge/**
 ServletCalculatorServlet
-10 * Servlet implementation class CalculatorServlet
-11
-12
+ * Servlet implementation class CalculatorServlet
+
 */
 @WebServlet ("/CalculatorServlet")
-13 public class CalculatorServlet extends HttpServlet {
-14 private static final long serialVersionUID = 1L;
-15 public void doGet (HttpServletRequest request, HttpServletResponse response) throws 16 ServletException, IOException {
-17 response.setContentType ("text/html; charset=UTF-8");
-18
+public class CalculatorServlet extends HttpServlet {
+ private static final long serialVersionUID = 1L;
+ public void doGet (HttpServletRequest request, HttpServletResponse response) throws 16 ServletException, IOException {
+ response.setContentType ("text/html; charset=UTF-8");
+
 PrintWriter out response.getWriter();
-19 out.println("<html><head><title>ServletCalculatorServlet</title> </head><body>");
-20 double nl = Double.parseDouble (request.getParameter ("txtN1"));
-21 double n2 = Double.parseDouble (request.getParameter("txtN2")); 22 double result =0;
-23 String opr-request.getParameter("opr");
-24 if (opr.equals("+"))
-25
+ out.println("<html><head><title>ServletCalculatorServlet</title> </head><body>");
+ double nl = Double.parseDouble (request.getParameter ("txtN1"));
+ double n2 = Double.parseDouble (request.getParameter("txtN2")); 22 double result =0;
+ String opr-request.getParameter("opr");
+ if (opr.equals("+"))
+
 result=n1+n2;
-26 if (opr.equals("*"))
-27
-28
-29
+ if (opr.equals("*"))
+
+
+
 result=nl*n2;
 out.println("<h1> Result = "+result);
 if (opr.equals("-"))
-29 if (opr.equals("-"))
-30
-31
-32
+ if (opr.equals("-"))
+
 result-nl-n2;
 if (opr.equals("/"))
 result=nl/n2;
-33 out.println("</body></html>");
-34
+ out.println("</body></html>");
 }
-35 }
+ }
