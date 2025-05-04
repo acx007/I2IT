@@ -3,18 +3,24 @@ import java.net.*;
 import java.util.*;
 
 class GFG {
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws UnknownHostException 
+    { 
+        //to get and print inetaddress of localhost
         InetAddress address1 = InetAddress.getLocalHost();
         System.out.println("InetAddress of Local Host : " + address1);
-
+        
+        //to get and print inetaddress of named host
         InetAddress address2 = InetAddress.getByName("127.0.0.1");
         System.out.println("InetAddress of Named Host : " + address2);
-
+        
+        //to get and print ALL inetaddresses of named host
         InetAddress address3[] = InetAddress.getAllByName("127.0.0.1");
-        for (int i = 0; i < address3.length; i++) {
+        for (int i = 0; i < address3.length; i++) 
+        {
             System.out.println( "ALL InetAddresses of Named Host : " + address3[i]);
         }
-
+        
+        // To get and print InetAddresses of Host with specified IP Address
         byte IPAddress[] = { 125, 0, 0, 1 };
         InetAddress address4 = InetAddress.getByAddress(IPAddress);
         System.out.println( "InetAddresses of Host with specified IP Address : " + address4);
