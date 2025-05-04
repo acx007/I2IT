@@ -1,60 +1,69 @@
-EXP-7
-Code:
-Index.html
+LoginServlet.java -
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet 
+{
+    private static final long serialVersionUID = 1L;
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+        // Display login form if GET request is received
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<html><body>");
+        out.println("<h2>Login Page</h2>");
+        out.println("<form action='LoginServlet' method='post'>");
+        out.println("Username: <input type='text' name='username' /><br><br>");
+        out.println("Password: <input type='password' name='password' /><br><br>");
+        out.println("<input type='submit' value='Login' />");
+        out.println("</form>");
+        out.println("</body></html>");
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+       
+        // Get parameters from client
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        // Set response content type
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        // Display username and password
+        out.println("<html><body>");
+        out.println("<h2>Login Details Received:</h2>");
+        out.println("Username: " + username + "<br>");
+        out.println("Password: " + password + "<br>");
+        out.println("</body></html>");
+    }
+    
+}
+
+index.html-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login Form</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-        .login-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        label, input {
-            display: block;
-            margin: 10px auto;
-        }
-        input[type="text"], input[type="password"] {
-            padding: 8px;
-            width: 200px;
-        }
-        input[type="submit"] {
-            padding: 8px 15px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
-    <div class="login-container">
-        <form action="Validation" method="post">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username">
-            
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    <h2>Login Page</h2>
+    <form action="LoginServlet" method="post">
+        Username: <input type="text" name="username" /><br><br>
+        Password: <input type="password" name="password" /><br><br>
+        <input type="submit" value="Login" />
+    </form>
 </body>
-</html>
-
-
+</html
