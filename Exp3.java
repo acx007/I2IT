@@ -1,125 +1,132 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 
-public class Exp3 extends Frame {
-    JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l12, l13, l14, l11, l15;
-    JTextField tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10;
-    JTextArea area2, area1;
-    JFileChooser f1;
+public class StudentMark extends JFrame 
+{
+	// UI Components
+	private JTextField tfName, tfJava, tfDataStruct, tfSysProg, tfOOP;
+	private JTextArea area;
+	private JButton btnReceipt, btnReset, btnPrint;
+	public StudentMark() 
+	{
+		setTitle("Student Marks System");
+		setSize(800, 800);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.CYAN);
+		setLayout(null);
+		
+		// Labels and Text Fields
+		add(createLabel("Student Marks", 550, 100, 250, 20));
+		tfName = createTextField(250, 150);
+		tfJava = createTextField(250, 200);
+		tfDataStruct = createTextField(250, 250);
+		tfSysProg = createTextField(250, 300);
+		tfOOP = createTextField(250, 350);
+		add(createLabel("Name of the Student:", 50, 150, 200, 20));
+		add(createLabel("Advanced Java:", 50, 200, 200, 20));
+		add(createLabel("Data Structure:", 50, 250, 200, 20));
+		add(createLabel("System Programming:", 50, 300, 200, 20));
+		add(createLabel("Object-Oriented Programming:", 50, 350, 250, 20));
+		
+		// Buttons
+		btnReceipt = createButton("Generate Receipt", 600, 490);
+		btnReset = createButton("Reset", 750, 490);
+		btnPrint = createButton("Print", 900, 490);
+		add(btnReceipt);
+		add(btnReset);
+		add(btnPrint);
+		
+		// Text Area
+		area = new JTextArea();
+		area.setBounds(600, 540, 450, 240);
+		add(area);
+		
+		// Action Listeners
+		btnReset.addActionListener(e -> resetFields());
+		btnPrint.addActionListener(e -> printReceipt());
+		btnReceipt.addActionListener(e -> generateReceipt());
+		setVisible(true);
+	}
+	
+	private JLabel createLabel(String text, int x, int y, int w, int h)
+	{
+		JLabel label = new JLabel(text);
+		label.setBounds(x, y, w, h);
+		return label;
+	}
+	
+	private JTextField createTextField(int x, int y)
+	{
+		JTextField tf = new JTextField();
+		tf.setBounds(x, y, 250, 20);
+		add(tf);
+		return tf;
+	}
+	
+	private JButton createButton(String text, int x, int y) 
+	{
+		JButton button = new JButton(text);
+		button.setBounds(x, y, 150, 30);
+		return button;
+	}
+	
+	private void resetFields() 
+	{
+		tfName.setText("");
+		tfJava.setText("");
+		tfDataStruct.setText("");
+		tfSysProg.setText("");
+		tfOOP.setText("");
+		area.setText("");
+	}
+	
+	private void printReceipt()
+	{
+	try {
+			area.print();
+		} 
+		catch (java.awt.print.PrinterException e) 
+		{
+			System.err.println("Printer error: " + e.getMessage());
+		}
+	}
+	
+	private void generateReceipt() 
+	{
+	    String receiptText = String.format
+	    (
+	        "-------------------------------------\n" +
+	        "-----------Report--------------------\n" +
+	        "-------------------------------------\n" +
+	        "Student Name: %s\n" +
+	        "Advanced Java: %s\n" +
+	        "Data Structure: %s\n" +
+	        "System Programming: %s\n" +
+	        "Object-Oriented Programming: %s\n",
+	        tfName.getText(), tfJava.getText(), tfDataStruct.getText(), tfSysProg.getText(), tfOOP.getText()
+	    );
+	    area.setText(receiptText);
+	    saveReceiptToFile(receiptText);
+	    JOptionPane.showMessageDialog(area, "Data saved successfully.");
+	}
+	
+	private void saveReceiptToFile(String text) 
+	{
+		try (FileWriter writer = new FileWriter("java.txt", true)) 
+		{
+			writer.write(text);
+		} 
+		catch (IOException e)
+		{
+			System.err.println("Error saving file: " + e.getMessage());
+		}
+	}
+	
+	public static void main(String[] args) 
+	{
+		new StudentMark();
+	}
 
-    Exp3() {
-        l1 = new JLabel("Student Marks");
-        l1.setBounds(550, 100, 250, 20);
-        l2 = new JLabel("Name of the Student:");
-        l2.setBounds(50, 150, 250, 20);
-        tf1 = new JTextField();
-        tf1.setBounds(250, 150, 250, 20);
-        l3 = new JLabel("Advanced Java:");
-        l3.setBounds(50, 200, 250, 20);
-        tf2 = new JTextField();
-        tf2.setBounds(250, 200, 250, 20);
-        l4 = new JLabel("Data Structure:");
-        l4.setBounds(50, 250, 250, 20);
-        tf3 = new JTextField();
-        tf3.setBounds(250, 250, 250, 20);
-        l5 = new JLabel("System programming:");
-        l5.setBounds(50, 300, 250, 20);
-        tf4 = new JTextField();
-        tf4.setBounds(250, 300, 250, 20);
-        l6 = new JLabel("Object Oriented programming:");
-        l6.setBounds(50, 350, 250, 20);
-        tf5 = new JTextField();
-        tf5.setBounds(250, 350, 250, 20);
-        JButton Receipt= new JButton("Generate Receipt");
-        Receipt.setBounds(600, 490, 150, 30);
-        JButton b2 = new JButton("Reset");
-        b2.setBounds(750, 490, 150, 30);
-        JButton Print = new JButton("Print");
-        Print.setBounds(900, 490, 150, 30);
-        area2 = new JTextArea();
-        area2.setBounds(600, 540, 450, 240);
-        add(l1);
-        add(l2);
-        add(l3);
-        add(l4);
-        add(l5);
-        add(l6);
-        add(tf1);
-        add(tf2);
-        add(tf3);
-        add(tf4);
-        add(tf5);
-        add(area2);
-        add(Receipt);
-        add(b2);
-        add(Print);
-
-        b2.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        area2.setText("");
-                        area1.setText(" ");
-                        tf1.setText("");
-                        tf2.setText("");
-                        tf3.setText("");
-                        tf4.setText("");
-                        tf5.setText("");
-                        tf6.setText(" ");
-                    }
-                });
-
-        Print.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-                            area2.print();
-                        }
-                        catch (java.awt.print.PrinterException a) {
-                            System.err.format("NoPrinter Found", a.getMessage());
-                        }
-                    }
-                });
-
-        Receipt.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                area2.setText("--------------------------------" + "-----------Report----" + "--------------------------" + "--------------------------" + "-------------------\n");
-                area2.setText(area2.getText()+ "Student Name: "+ tf1.getText() + "\n");
-                area2.setText(area2.getText()+ "Advanced Java: "+ tf2.getText()+ "\n");
-                area2.setText(area2.getText()+ "Data Structure: "+ tf3.getText()+ "\n");
-                area2.setText(area2.getText()+ "System programming: " + tf4.getText() + "\n");
-                area2.setText(area2.getText()+ "Object Oriented programming: "+ tf5.getText()+ "\n");
-                if (e.getSource() == Receipt) {
-                    try {
-                        FileWriter fw = new FileWriter("java.txt", true);
-                        fw.write(area2.getText());
-                        fw.close();
-                    }
-                    catch (Exception ae) {
-                        System.out.println(ae);
-                    }
-                }
-                JOptionPane.showMessageDialog(area2, "DATA SAVED SUCCESSFULLY");
-            }
-        });
-
-        addWindowListener(
-                new WindowAdapter() {
-                    public void windowClosing(WindowEvent we) {
-                        System.exit(0);
-                    }
-                });
-
-        setSize(800, 800);
-        setLayout(null);
-        setVisible(true);
-        setBackground(Color.cyan);
-    }
-
-    public static void main(String[] args) {
-        new Exp3();
-    }
 }
+
