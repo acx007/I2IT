@@ -1,45 +1,47 @@
 //Insert -
+// first create a database in mysql work bench using followimg code:
+CREATE DATABASE TUTORIALSPOINT;
 
-package practical4;
+USE TUTORIALSPOINT;
 
-import java.sql.*;
+CREATE TABLE Registration (
+    id INT,
+    first VARCHAR(255),
+    last VARCHAR(255),
+    age INT
+);
+// then create java project in eclipse.after that make a package having 2 classes : JDBCInsertExample and JDBCSelectExample. paste the follwing code for the classes:
+// ALSO ADD JAR FILE IN YOUR BUILD PATH.
+//JDBCInsertExample:
 
-public class JDBCExample {
-    static final String DB_URL = "jdbc:mysql://localhost:3306/";
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBCInsertExample {
+    static final String DB_URL = "jdbc:mysql://localhost/TUTORIALSPOINT";
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "arnav";
 
     public static void main(String[] args) {
-        // Step 1: Create database
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             Statement stmt = conn.createStatement()) {
-
-            String SQL = "CREATE DATABASE IF NOT EXISTS STUDENTS";
-            stmt.executeUpdate(SQL);
-            System.out.println("Database created successfully...");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        // Step 2: Connect to the STUDENTS database and insert records
-        try (Connection conn = DriverManager.getConnection(DB_URL + "STUDENTS", USER, PASS);
-             Statement stmt = conn.createStatement()) {
-
+        // Open a connection
+        try (
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+        ) {
+            // Execute insert queries
             System.out.println("Inserting records into the table...");
-
-            // Optional: Create table if not exists
-            String createTable = "CREATE TABLE IF NOT EXISTS Registration " +
-                                 "(id INT, first VARCHAR(255), last VARCHAR(255), age INT)";
-            stmt.executeUpdate(createTable);
 
             String sql = "INSERT INTO Registration VALUES (100, 'Sachin', 'Tendulkar', 18)";
             stmt.executeUpdate(sql);
+
             sql = "INSERT INTO Registration VALUES (101, 'Virat', 'Kohli', 25)";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO Registration VALUES (102, 'Mahendra', 'Singh Dhoni', 30)";
+
+            sql = "INSERT INTO Registration VALUES (102, 'Mahendra Singh', 'Dhoni', 30)";
             stmt.executeUpdate(sql);
+
             sql = "INSERT INTO Registration VALUES (103, 'Rohit', 'Sharma', 28)";
             stmt.executeUpdate(sql);
 
@@ -49,31 +51,38 @@ public class JDBCExample {
         }
     }
 }
+//JDBCSelectExample:
+package exp5;
 
-//Select -
-package practical4;
-import java.sql.*;
-public class JDBCSelect {
-	static final String DB_URL = "jdbc:mysql://localhost:3306/STUDENTS"; 
-	static final String USER = "root";
-	static final String PASS = "root";
-	static final String QUERY = "SELECT id, first, last, age FROM Registration";
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-	public static void main(String[] args) {
-		// Open a connection
-		try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-		     Statement stmt = conn.createStatement();
-		     ResultSet rs = stmt.executeQuery(QUERY)) {
+public class JDBCSelectExample {
+    static final String DB_URL = "jdbc:mysql://localhost/TUTORIALSPOINT";
+    static final String USER = "root";
+    static final String PASS = "arnav";
+    static final String QUERY = "SELECT id, first, last, age FROM Registration";
 
-			while (rs.next()) {
-				// Display values
-				System.out.print("ID: " + rs.getInt("id"));
-				System.out.print(", Age: " + rs.getInt("age"));
-				System.out.print(", First: " + rs.getString("first"));
-				System.out.println(", Last: " + rs.getString("last"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        // Open a connection
+        try (
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+        ) {
+            // Extract and print data
+            while (rs.next()) {
+                System.out.print("ID: " + rs.getInt("id"));
+                System.out.print(", Age: " + rs.getInt("age"));
+                System.out.print(", First: " + rs.getString("first"));
+                System.out.println(", Last: " + rs.getString("last"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
+// now simply execute javainsertexample class first, and then execute javaselect example. MAKE SURE THE ADMIN AND PASS IN BOTH CODES MATCHES TO YOUR ADMIN AND PASS OF MYSQL!
