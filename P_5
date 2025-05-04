@@ -79,3 +79,14 @@ System.out.println("Exception" + e);
 }
 }
 }
+
+
+Then open the cmd prompt-
+1) Set directory to folder using cd “path RMI_Palindrome folder”
+2) Now set path= “C:\Program Files\Java\jdk1.8.0_361\bin”
+3) Run javac *.java (4 class files created)
+4) Now run rmic two (stud file for two is created)
+5) Run cmd start rmiregistry
+6) On first cmd prompt, run java rmiserver
+7) On second prompt, run java rmiclient.
+
