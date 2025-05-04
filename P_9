@@ -1,4 +1,7 @@
-index.jsp CODE
+Go to tomcat folder -> webapps -> myApp -> hello.jsp
+In hello.jsp (using notepad), put the following code 
+
+hello.jsp-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -9,7 +12,16 @@ pageEncoding="ISO-8859-1"%>
 <title>My First JSP Assignment</title>
 </head>
 <body>
-<h1>Hello I2IT from JSP</h1>
+<h1>Hello JSP</h1>
 <% out.print("Result is "+3*9*8*2); %>
 </body>
 </html>
+
+Now on cmd prompt, 
+1) Navigate to tomcat folder -> bin, copy this path
+2) In cmd prompt, set this directory using cd “copied path”
+3) Then run startup.bat (this runs your tomcat)
+4) Now open browser and go to -> http://localhost:8080 (your tomcat is working if this link shows welcome page)
+5) Now, open browser and go to -> http://localhost:8080/MyApp/hello.jsp
+You will see the result.
+
